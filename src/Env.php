@@ -2,66 +2,21 @@
 
 namespace Ssf\Support;
 
-use Dotenv\Repository\Adapter\PutenvAdapter;
-use Dotenv\Repository\RepositoryBuilder;
-use PhpOption\Option;
+use Symfony\Component\Dotenv\Dotenv;
 
 class Env
 {
-    /**
-     * Indicates if the putenv adapter is enabled.
-     *
-     * @var bool
-     */
-    protected static $putenv = true;
 
-    /**
-     * The environment repository instance.
-     *
-     * @var \Dotenv\Repository\RepositoryInterface|null
-     */
-    protected static $repository;
+    private static $dotenv = null;
 
-    /**
-     * Enable the putenv adapter.
-     *
-     * @return void
-     */
-    public static function enablePutenv()
+    public static function getDotenv()
     {
-        static::$putenv = true;
-        static::$repository = null;
-    }
-
-    /**
-     * Disable the putenv adapter.
-     *
-     * @return void
-     */
-    public static function disablePutenv()
-    {
-        static::$putenv = false;
-        static::$repository = null;
-    }
-
-    /**
-     * Get the environment repository instance.
-     *
-     * @return \Dotenv\Repository\RepositoryInterface
-     */
-    public static function getRepository()
-    {
-        if (static::$repository === null) {
-            $builder = RepositoryBuilder::createWithDefaultAdapters();
-
-            if (static::$putenv) {
-                $builder = $builder->addAdapter(PutenvAdapter::class);
-            }
-
-            static::$repository = $builder->immutable()->make();
+        if (is_null(static::$dotenv)) {
+            $envPath = getcwd() . DIRECTORY_SEPARATOR . '.env';
+            static::$dotenv = new Dotenv('APP_ENV');
+            static::$dotenv->overload($envPath);
         }
-
-        return static::$repository;
+        return static::$dotenv;
     }
 
     /**
@@ -73,31 +28,7 @@ class Env
      */
     public static function get(string $key, $default = null)
     {
-        return Option::fromValue(static::getRepository()->get($key))
-            ->map(function ($value) {
-                switch (strtolower($value)) {
-                    case 'true':
-                    case '(true)':
-                        return true;
-                    case 'false':
-                    case '(false)':
-                        return false;
-                    case 'empty':
-                    case '(empty)':
-                        return '';
-                    case 'null':
-                    case '(null)':
-                        return;
-                }
-
-                if (preg_match('/\A([\'"])(.*)\1\z/', $value, $matches)) {
-                    return $matches[2];
-                }
-
-                return $value;
-            })
-            ->getOrCall(function () use ($default) {
-                return Helpers::value($default);
-            });
+        self::getDotenv();
+        return isset($_ENV[$key]) ? $_ENV[$key] ?: $default : $default;
     }
 }
