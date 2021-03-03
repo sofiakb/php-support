@@ -3,7 +3,7 @@
     "description": "A library for support",
     "type": "library",
     "license": "MIT",
-    "version": "v0.0.5",
+    "version": "0.0.6",
     "require": {
         "php": "^7.2",
         "symfony/dotenv": "^5.2"
