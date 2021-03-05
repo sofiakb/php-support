@@ -4,11 +4,21 @@ namespace Ssf\Support;
 
 use Symfony\Component\Dotenv\Dotenv;
 
+/**
+ * Class Env
+ * @package Ssf\Support
+ */
 class Env
 {
 
+    /**
+     * @var null
+     */
     private static $dotenv = null;
 
+    /**
+     * @return null
+     */
     public static function getDotenv()
     {
         if (is_null(static::$dotenv)) {
