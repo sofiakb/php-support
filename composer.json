@@ -3,7 +3,7 @@
     "description": "A library for support",
     "type": "library",
     "license": "MIT",
-    "version": "0.0.8-beta1",
+    "version": "0.0.9-beta1",
     "require": {
         "php": "^7.2",
         "nesbot/carbon": "^2.45",
