@@ -22,7 +22,7 @@ class Env
     public static function getDotenv()
     {
         if (is_null(static::$dotenv)) {
-            $envPath = getcwd() . DIRECTORY_SEPARATOR . '.env';
+            $envPath = project_path() . DIRECTORY_SEPARATOR . '.env';
             static::$dotenv = new Dotenv('APP_ENV');
             static::$dotenv->overload($envPath);
         }

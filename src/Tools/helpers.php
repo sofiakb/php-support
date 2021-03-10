@@ -42,7 +42,7 @@ if (!function_exists('storage_path')) {
      */
     function storage_path($path = null)
     {
-        return getcwd() . DIRECTORY_SEPARATOR . 'storage' . ($path ? DIRECTORY_SEPARATOR . $path : null);
+        return project_path() . DIRECTORY_SEPARATOR . 'storage' . ($path ? DIRECTORY_SEPARATOR . $path : null);
     }
 }
 
@@ -105,5 +105,18 @@ if (!function_exists('signal')) {
             echo "\033[01;31m" . $e->getMessage() . "\033[0m" . PHP_EOL . PHP_EOL;
         }
         Log::error($e);
+    }
+}
+
+if (!function_exists('project_path')) {
+    /**
+     * Get the path to the project folder.
+     *
+     * @return string
+     */
+    function project_path()
+    {
+        list($scriptPath) = get_included_files();
+        return dirname($scriptPath);
     }
 }

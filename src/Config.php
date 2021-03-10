@@ -19,7 +19,7 @@ class Config
 
     public function setKey(?string $key)
     {
-        $this->path = getcwd() . DIRECTORY_SEPARATOR . 'config';
+        $this->path = project_path() . DIRECTORY_SEPARATOR . 'config';
         $this->file = $this->getFile(($dot = $this->getConfigDot($key)));
         $this->configDot = array_slice($dot, 1);
 
