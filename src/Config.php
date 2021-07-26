@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Ssf\Support;
+namespace Sofiakb\Support;
 
 
 use Exception;

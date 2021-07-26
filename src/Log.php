@@ -5,12 +5,12 @@
  * @author Akbly Sofiane <sofiane.akbly@gmail.com>
  */
 
-namespace Ssf\Support;
+namespace Sofiakb\Support;
 
 
 /**
  * Class Log
- * @package Ssf\Support
+ * @package Sofiakb\Support
  */
 class Log
 {

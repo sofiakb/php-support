@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssf\Support\Traits;
+namespace Sofiakb\Support\Traits;
 
 use BadMethodCallException;
 use Closure;

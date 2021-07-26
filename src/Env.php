@@ -1,12 +1,12 @@
 <?php
 
-namespace Ssf\Support;
+namespace Sofiakb\Support;
 
 use Symfony\Component\Dotenv\Dotenv;
 
 /**
  * Class Env
- * @package Ssf\Support
+ * @package Sofiakb\Support
  */
 class Env
 {

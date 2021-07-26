@@ -1,9 +1,9 @@
 <?php
 
 use Carbon\Carbon;
-use Ssf\Support\Config;
-use Ssf\Support\Env;
-use Ssf\Support\Log;
+use Sofiakb\Support\Config;
+use Sofiakb\Support\Env;
+use Sofiakb\Support\Log;
 
 if (!function_exists('env')) {
     /**
