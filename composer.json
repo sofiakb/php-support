@@ -3,7 +3,7 @@
     "description": "A library for support",
     "type": "library",
     "license": "MIT",
-    "version": "v0.0.9-beta6",
+    "version": "dev-main",
     "require": {
         "php": "^7.2",
         "nesbot/carbon": "^2.45",
@@ -20,7 +20,7 @@
             "tests/"
         ]
     },
-    "time": "2021-07-29",
+    "time": "2022-01-21",
     "authors": [
         {
             "name": "Sofiane Akbly",
