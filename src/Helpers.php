@@ -5,7 +5,6 @@ namespace Sofiakb\Support;
 
 
 use Closure;
-use Exception;
 
 /**
  * Class Helpers
@@ -19,7 +18,7 @@ abstract class Helpers
      * @param mixed $value
      * @return mixed
      */
-    public static function value($value)
+    public static function value(mixed $value): mixed
     {
         return $value instanceof Closure ? $value() : $value;
     }

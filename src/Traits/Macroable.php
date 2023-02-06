@@ -5,6 +5,7 @@ namespace Sofiakb\Support\Traits;
 use BadMethodCallException;
 use Closure;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionMethod;
 
 trait Macroable
@@ -14,16 +15,16 @@ trait Macroable
      *
      * @var array
      */
-    protected static $macros = [];
+    protected static array $macros = [];
 
     /**
      * Register a custom macro.
      *
-     * @param  string  $name
-     * @param  object|callable  $macro
+     * @param string $name
+     * @param callable|object $macro
      * @return void
      */
-    public static function macro($name, $macro)
+    public static function macro(string $name, callable|object $macro): void
     {
         static::$macros[$name] = $macro;
     }
@@ -31,13 +32,13 @@ trait Macroable
     /**
      * Mix another object into the class.
      *
-     * @param  object  $mixin
-     * @param  bool  $replace
+     * @param object $mixin
+     * @param bool $replace
      * @return void
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public static function mixin($mixin, $replace = true)
+    public static function mixin(object $mixin, bool $replace = true): void
     {
         $methods = (new ReflectionClass($mixin))->getMethods(
             ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
@@ -54,10 +55,10 @@ trait Macroable
     /**
      * Checks if macro is registered.
      *
-     * @param  string  $name
+     * @param string $name
      * @return bool
      */
-    public static function hasMacro($name)
+    public static function hasMacro(string $name): bool
     {
         return isset(static::$macros[$name]);
     }
@@ -65,13 +66,13 @@ trait Macroable
     /**
      * Dynamically handle calls to the class.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      */
-    public static function __callStatic($method, $parameters)
+    public static function __callStatic(string $method, array $parameters)
     {
         if (! static::hasMacro($method)) {
             throw new BadMethodCallException(sprintf(
@@ -91,13 +92,13 @@ trait Macroable
     /**
      * Dynamically handle calls to the class.
      *
-     * @param  string  $method
-     * @param  array  $parameters
+     * @param string $method
+     * @param array $parameters
      * @return mixed
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      */
-    public function __call($method, $parameters)
+    public function __call(string $method, array $parameters)
     {
         if (! static::hasMacro($method)) {
             throw new BadMethodCallException(sprintf(

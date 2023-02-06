@@ -17,7 +17,7 @@ class Config
     private $configDot;
 
 
-    public function setKey(?string $key)
+    public function setKey(?string $key): static
     {
         $this->path = project_path() . DIRECTORY_SEPARATOR . 'config';
         $this->file = $this->getFile(($dot = $this->getConfigDot($key)));
@@ -29,7 +29,7 @@ class Config
         return $this;
     }
 
-    private function getConfigDot(?string &$key)
+    private function getConfigDot(?string &$key): array
     {
         return is_null($key) ? array() : explode('.', $key);
     }
@@ -42,7 +42,7 @@ class Config
     /**
      * @return Config
      */
-    public static function getInstance()
+    public static function getInstance(): Config
     {
         if (is_null(static::$config))
             static::$config = new static;
@@ -55,10 +55,10 @@ class Config
      * If an array is passed as the key, we will assume you want to set an array of values.
      *
      * @param string|null $key
-     * @param mixed $default
+     * @param mixed|null $default
      * @return mixed
      */
-    public static function get(?string $key = null, $default = null)
+    public static function get(?string $key = null, mixed $default = null): mixed
     {
         $config = self::getInstance()->setKey($key);
         $data = $config->data;
